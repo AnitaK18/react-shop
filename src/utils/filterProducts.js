@@ -1,4 +1,6 @@
-export const applyFilters = (products, { category, discount, sort, query }) => {
+import { parsePrice } from "./price";
+
+export const applyFilters = (products, { category, discount, sort, query, priceMin, priceMax }) => {
   let result = products;
 
   if (category) {
@@ -9,11 +11,19 @@ export const applyFilters = (products, { category, discount, sort, query }) => {
     result = result.filter((p) => p.discountPercent >= discount);
   }
 
+  if (priceMin != null) {
+    result = result.filter((p) => parsePrice(p.price) >= priceMin);
+  }
+
+  if (priceMax != null) {
+    result = result.filter((p) => parsePrice(p.price) <= priceMax);
+  }
+
   if (query) {
     const tokens = query.toLocaleLowerCase("uk").split(/\s+/).filter(Boolean);
     if (tokens.length > 0) {
       result = result.filter((p) => {
-        const haystack = `${p.title} ${p.description}`.toLocaleLowerCase("uk");
+        const haystack = p.title.toLocaleLowerCase("uk");
         return tokens.every((t) => haystack.includes(t));
       });
     }

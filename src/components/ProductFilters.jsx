@@ -28,6 +28,15 @@ export const ProductFilters = ({ value, onChange }) => {
     onChange({ ...value, sort: e.target.value });
   };
 
+  const handlePrice = (key) => (e) => {
+    const raw = e.target.value;
+    const num = Number(raw);
+    onChange({
+      ...value,
+      [key]: raw && Number.isFinite(num) && num > 0 ? num : null,
+    });
+  };
+
   return (
     <div className="product-filters">
       <div className="row">
@@ -72,6 +81,30 @@ export const ProductFilters = ({ value, onChange }) => {
             <option key={o.value} value={o.value}>{o.label}</option>
           ))}
         </select>
+      </div>
+
+      <div className="row">
+        <label htmlFor="price-min">Ціна, $:</label>
+        <input
+          id="price-min"
+          type="number"
+          min="0"
+          step="1"
+          placeholder="Від"
+          value={value.priceMin ?? ""}
+          onChange={handlePrice("priceMin")}
+          className="price-input"
+        />
+        <input
+          id="price-max"
+          type="number"
+          min="0"
+          step="1"
+          placeholder="До"
+          value={value.priceMax ?? ""}
+          onChange={handlePrice("priceMax")}
+          className="price-input"
+        />
       </div>
     </div>
   );

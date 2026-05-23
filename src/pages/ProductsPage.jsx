@@ -13,6 +13,11 @@ const VALID_CATEGORIES = ["face", "hair", "body", "lips"];
 const VALID_DISCOUNTS = [10, 15, 20];
 const VALID_SORTS = ["discount-desc", "name-asc"];
 
+const readPrice = (raw) => {
+  const n = Number(raw);
+  return Number.isFinite(n) && n > 0 ? n : null;
+};
+
 const readFilters = (params) => {
   const category = params.get("category");
   const discount = Number(params.get("discount"));
@@ -23,15 +28,19 @@ const readFilters = (params) => {
     discount: VALID_DISCOUNTS.includes(discount) ? discount : null,
     sort: VALID_SORTS.includes(sort) ? sort : "default",
     query: query || null,
+    priceMin: readPrice(params.get("priceMin")),
+    priceMax: readPrice(params.get("priceMax")),
   };
 };
 
-const buildSearchParams = ({ category, discount, sort, query }) => {
+const buildSearchParams = ({ category, discount, sort, query, priceMin, priceMax }) => {
   const next = {};
   if (category) next.category = category;
   if (discount) next.discount = String(discount);
   if (sort && sort !== "default") next.sort = sort;
   if (query) next.q = query;
+  if (priceMin) next.priceMin = String(priceMin);
+  if (priceMax) next.priceMax = String(priceMax);
   return next;
 };
 
@@ -51,7 +60,7 @@ export const ProductsPage = () => {
 
   const visible = useMemo(
     () => applyFilters(PRODUCT_LIST, filters),
-    [filters.category, filters.discount, filters.sort, filters.query]
+    [filters.category, filters.discount, filters.sort, filters.query, filters.priceMin, filters.priceMax]
   );
 
   return (

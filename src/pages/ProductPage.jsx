@@ -25,7 +25,11 @@ export const ProductPage = () => {
     return (
       <>
         <Header />
-        <EmptyProductPlaceholder />
+        <EmptyProductPlaceholder
+          title="Товар не знайдено"
+          actionLabel="Повернутись на головну"
+          to="/"
+        />
         <Footer />
       </>
     );

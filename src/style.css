@@ -965,3 +965,83 @@ header .fa-bars{
         font-size: 1.8rem;
     }
 }
+
+/* ===== Products page filters ===== */
+
+.products-page {
+  padding: 10rem 9% 5rem;
+  min-height: 60vh;
+}
+
+.product-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #fff;
+  border: .1rem solid rgba(0,0,0,.1);
+  border-radius: .5rem;
+  box-shadow: 0 .5rem 1.5rem rgba(0,0,0,.05);
+}
+
+.product-filters .row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.product-filters .chip {
+  padding: .8rem 1.8rem;
+  font-size: 1.5rem;
+  background: #f9f9f9;
+  color: #333;
+  border: .1rem solid rgba(0,0,0,.1);
+  border-radius: 5rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.product-filters .chip:hover {
+  background: #eee;
+}
+
+.product-filters .chip.active {
+  background: var(--pink);
+  color: #fff;
+  border-color: var(--pink);
+}
+
+.product-filters select {
+  padding: .8rem 1.2rem;
+  font-size: 1.5rem;
+  background: #fff;
+  color: #333;
+  border: .1rem solid rgba(0,0,0,.1);
+  border-radius: .5rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.product-filters select:focus {
+  border-color: var(--pink);
+}
+
+.product-filters label {
+  font-size: 1.5rem;
+  color: #333;
+  margin-right: .5rem;
+}
+
+.result-count {
+  font-size: 1.6rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.products-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}

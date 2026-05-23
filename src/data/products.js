@@ -15,7 +15,6 @@ export const CATEGORIES = [
   { value: "lips", label: "Губи" },
 ];
 
-// Note: images are reused across products of the same category — swap freely later.
 export const PRODUCT_LIST = [
   {
     id: 1,

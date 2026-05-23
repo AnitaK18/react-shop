@@ -16,7 +16,6 @@ export const HomePage = () => {
 
   useUpdateTitle("Твоя краса — наша турбота");
 
-  // Обработка якорей при переходе на главную страницу
   useEffect(() => {
     if (location.hash) {
       setTimeout(() => {

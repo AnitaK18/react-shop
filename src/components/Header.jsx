@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router";
 import { HeaderSearch } from "./HeaderSearch";
+import CartIcon from "./CartIcon";
 
 const Header = () => {
   return (
@@ -17,6 +18,7 @@ const Header = () => {
         <Link to="/#contact">Контакти</Link>
       </nav>
       <HeaderSearch />
+      <CartIcon />
     </header>
   );
 };

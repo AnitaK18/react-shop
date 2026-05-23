@@ -6,9 +6,11 @@ import { PRODUCT_LIST } from "../data/products";
 import { RelatedProducts } from "../components/RelatedProducts";
 import { EmptyProductPlaceholder } from "../components/EmptyProductPlaceholder";
 import { useUpdateTitle } from "../hooks/useUpdateTitle";
+import { useCart } from "../hooks/useCart";
 
 export const ProductPage = () => {
   const { id } = useParams();
+  const { addItem } = useCart();
 
   const product = PRODUCT_LIST.find((p) => p.id === parseInt(id));
 
@@ -39,7 +41,6 @@ export const ProductPage = () => {
     <>
       <Header />
 
-      {/* Основна секція товару */}
       <section className="product-detail">
         <div className="row">
           <div className="image-container">
@@ -69,14 +70,13 @@ export const ProductPage = () => {
             </div>
 
             <div className="actions">
-              <button className="btn">Додати в кошик</button>
+              <button className="btn" onClick={() => addItem(product.id)}>Додати в кошик</button>
               <button className="btn btn-outline">Додати в обране</button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Секція схожих товарів */}
       <RelatedProducts products={relatedProducts} />
       <Footer />
     </>

@@ -17,18 +17,21 @@ const readFilters = (params) => {
   const category = params.get("category");
   const discount = Number(params.get("discount"));
   const sort = params.get("sort");
+  const query = (params.get("q") ?? "").trim();
   return {
     category: VALID_CATEGORIES.includes(category) ? category : null,
     discount: VALID_DISCOUNTS.includes(discount) ? discount : null,
     sort: VALID_SORTS.includes(sort) ? sort : "default",
+    query: query || null,
   };
 };
 
-const buildSearchParams = ({ category, discount, sort }) => {
+const buildSearchParams = ({ category, discount, sort, query }) => {
   const next = {};
   if (category) next.category = category;
   if (discount) next.discount = String(discount);
   if (sort && sort !== "default") next.sort = sort;
+  if (query) next.q = query;
   return next;
 };
 
@@ -48,7 +51,7 @@ export const ProductsPage = () => {
 
   const visible = useMemo(
     () => applyFilters(PRODUCT_LIST, filters),
-    [filters.category, filters.discount, filters.sort]
+    [filters.category, filters.discount, filters.sort, filters.query]
   );
 
   return (
@@ -59,6 +62,19 @@ export const ProductsPage = () => {
           Наш <span>каталог</span>
         </h1>
         <ProductFilters value={filters} onChange={setFilters} />
+        {filters.query && (
+          <div className="active-search">
+            Пошук: <strong>«{filters.query}»</strong>
+            <button
+              type="button"
+              className="active-search-clear"
+              aria-label="Скинути пошук"
+              onClick={() => setFilters({ ...filters, query: null })}
+            >
+              ×
+            </button>
+          </div>
+        )}
         <p className="result-count">Знайдено: {visible.length} товарів</p>
         {visible.length === 0 ? (
           <EmptyProductPlaceholder

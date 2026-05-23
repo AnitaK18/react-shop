@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router";
+import { HeaderSearch } from "./HeaderSearch";
 
 const Header = () => {
   return (
@@ -15,6 +16,7 @@ const Header = () => {
         <Link to="/products">Каталог</Link>
         <Link to="/#contact">Контакти</Link>
       </nav>
+      <HeaderSearch />
     </header>
   );
 };

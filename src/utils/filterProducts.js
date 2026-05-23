@@ -1,4 +1,4 @@
-export const applyFilters = (products, { category, discount, sort }) => {
+export const applyFilters = (products, { category, discount, sort, query }) => {
   let result = products;
 
   if (category) {
@@ -7,6 +7,16 @@ export const applyFilters = (products, { category, discount, sort }) => {
 
   if (discount) {
     result = result.filter((p) => p.discountPercent >= discount);
+  }
+
+  if (query) {
+    const tokens = query.toLocaleLowerCase("uk").split(/\s+/).filter(Boolean);
+    if (tokens.length > 0) {
+      result = result.filter((p) => {
+        const haystack = `${p.title} ${p.description}`.toLocaleLowerCase("uk");
+        return tokens.every((t) => haystack.includes(t));
+      });
+    }
   }
 
   if (sort === "discount-desc") {
